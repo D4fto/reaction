@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2B87D1;
+            width: 100vw;
+            height: 100vh;
+            cursor: pointer;
+            text-align: center;
+            flex-direction: column;
+        }
+        .espera{
+            background-color: #CE2636;
+        }
+        .errou, .default{
+            background-color: #2B87D1;
+        }
+        .clica{
+            background-color: #4BDB6A;
+        }
+    </style>
+</head>
+<body >
+    <div id="texto" onclick="jogar()" class="default"><h1>Click para começar</h1></div>
+    <script>
+        const body = document.querySelector('body')
+        const texto = document.querySelector('#texto')
+        let tempo = 0
+        let contagem = 0
+        let total = 0
+        function jogar(){
+            if(texto.classList.contains("default")){
+                texto.classList=""
+                texto.classList.add("espera")
+                texto.innerHTML = "<h1>...<br>Wait for green</h1>"
+                timer = setTimeout(()=>{
+                    texto.classList=""
+                    texto.classList.add("clica")
+                    texto.innerHTML = "<h1>...<br>Click</h1>"
+                    tempo = Date.now()
+
+                },Math.random() * (5000 - 3000) + 3000)
+            }
+            else if(texto.classList.contains("espera")){
+                texto.classList=""
+                texto.classList.add("errou")
+                window.clearTimeout(timer)
+                texto.innerHTML = "<h1>...<br>Too soon<br></h1><br><p>Click to try again</p>"
+                
+            }
+            else if(texto.classList.contains("clica")){
+                texto.classList=""
+                texto.classList.add("acertou")
+                contagem+=1
+                texto.innerHTML = "<h1>vc fez em "+(Date.now()-tempo)+"ms</h1>"
+                if(total==0){
+                    total=Date.now()-tempo
+                }
+                total=(total+(Date.now()-tempo))/2
+                console.log(total)
+                
+            }
+            else if(texto.classList.contains("acertou")||texto.classList.contains("errou")){
+                timer = setTimeout(()=>{
+                    texto.classList=""
+                    texto.classList.add("clica")
+                    texto.innerHTML = "<h1>...<br>Click</h1>"
+                    tempo = Date.now()
+    
+                },Math.random() * (5000 - 3000) + 3000)
+                texto.classList=""
+                texto.innerHTML = "<h1>...<br>Wait for green</h1>"
+                texto.classList.add("espera")
+            }
+            //#4BDB6A
+        }
+
+    </script>
+</body>
+</html>
