@@ -74,14 +74,14 @@
                 texto.classList=""
                 texto.classList.add("errou")
                 window.clearTimeout(timer)
-                texto.innerHTML = "<h1><i class='bi bi-stopwatch'></i><br>Too soon<br></h1><br><p>Click to try again</p>"
+                texto.innerHTML = "<h1><i class='bi bi-exclamation-circle'></i></i><br>Too soon<br></h1><br><p>Click to try again</p>"
                 
             }
             else if(texto.classList.contains("clica")){
                 texto.classList=""
                 texto.classList.add("acertou")
                 contagem+=1
-                texto.innerHTML = "<h1><i class='bi bi-lightning-fill'></i><br>Tempo de reação "+(Date.now()-tempo)+"ms</h1>"
+                texto.innerHTML = "<h1><i class='bi bi-clock'></i><br>Tempo de reação "+(Date.now()-tempo)+"ms</h1>"
                 if(total==0){
                     total=Date.now()-tempo
                 }
